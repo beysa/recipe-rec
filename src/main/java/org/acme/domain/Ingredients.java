@@ -1,6 +1,12 @@
 package org.acme.domain;
 
+import io.smallrye.mutiny.Multi;
+import io.vertx.mutiny.pgclient.PgPool;
+import io.vertx.mutiny.sqlclient.Row;
+
+
 public class Ingredients {
+
     int ingrId;
     String recipeName;
     String foodName;
@@ -56,6 +62,22 @@ public class Ingredients {
     public String toString() {
         return "Ingredients [amount=" + amount + ", foodName=" + foodName + ", recipeName=" + recipeName + ", type="
                 + type + "]";
+    }
+
+    
+    public static Multi<Ingredients> findAll(PgPool client) {
+
+        return  client
+            .query("SELECT * FROM Ingredients")
+            .execute()
+            .onItem()
+            .transformToMulti(set -> Multi.createFrom().iterable(set))
+            .onItem()
+            .transform(Ingredients::from);
+    } 
+
+    private static Ingredients from(Row row) {
+        return new Ingredients(row.getInteger("ingr_id"), row.getString("recipeName"), row.getString("foodName"),row.getString("itype"),row.getString("iquantity"),row.getString("imeasure"),row.getDouble("iamount"));
     }
 
     

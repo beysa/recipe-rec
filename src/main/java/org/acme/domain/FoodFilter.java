@@ -1,49 +1,44 @@
 package org.acme.domain;
 
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class FoodFilter {
     
-
+    @Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     String name;
-    double amount;
-    String type;
-    
+
     public FoodFilter() {
     }
-
-    
-
 
     public FoodFilter(String name) {
         this.name = name;
     }
 
 
+    public Long getId() {
+        return id;
+    }
 
-
-    public FoodFilter(String name, double amount, String type) {
-        this.name = name;
-        this.amount = amount;
-        this.type = type;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public double getAmount() {
-        return amount;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-
-    @Override
-    public String toString() {
-        return "PantryFilter [amount=" + amount + ", type=" + type + "]"+ ", name=" + name ;
+    public void setName(String name) {
+        this.name = name;
     }
 
     
+
 }

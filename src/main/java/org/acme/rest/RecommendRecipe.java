@@ -10,6 +10,6 @@ public class RecommendRecipe {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
-        return "recc";
+        return "may the force be with you";
     }
 }
